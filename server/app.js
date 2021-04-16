@@ -1,19 +1,36 @@
+/*
+============================================
+; Title:  app.js
+; Author: Professor Krasso
+; Date:   15 April 2021
+; Modified by: Karina Alvarez, Douglas Jenkins, Arlix Sorto
+; Description: application file
+;===========================================
+*/
+
 /**
  * Require statements
  */
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
+
+/**
+ * Routes
+ */
+const SecurityQuestionAPI = require('./routes/security-question-api');
+const UserAPI = require('./routes/user-api');
+const SessionAPI = require('./routes/session-api');
+
 
 /**
  * App configurations
  */
 let app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended': true}));
+app.use(express.json());
+app.use(express.urlencoded({'extended': true}));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../dist/bcrs')));
 app.use('/', express.static(path.join(__dirname, '../dist/bcrs')));
@@ -21,9 +38,9 @@ app.use('/', express.static(path.join(__dirname, '../dist/bcrs')));
 /**
  * Variables
  */
-const port = 3000; // server port
+const port = process.env.PORT || 3000; // server port
 
-// TODO: This line will need to be replaced with your actual database connection string
+//mongo db connection with username and password to access database
 const conn = 'mongodb+srv://superadmin:s3cret@cluster0-lujih.mongodb.net/bcrs?retryWrites=true&w=majority';
 
 /**
@@ -40,8 +57,11 @@ mongoose.connect(conn, {
 }); // end mongoose connection
 
 /**
- * API(s) go here...
+ * APIs
  */
+app.use('api/security-question', SecurityQuestionAPI);
+//app.use('/api/users', UserAPI);
+//app.use('/api/session', SessionAPI);
 
 /**
  * Create and start server
