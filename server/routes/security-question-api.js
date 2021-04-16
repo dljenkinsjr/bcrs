@@ -21,7 +21,7 @@ const router = express.Router();
 // each API will go through this route -> http://localhost:3000/api/security-questions
 
 /**
- * Security Question FindAll API
+ * FindAll API
 */
 router.get('/', async(req, res) => {
   try
@@ -57,13 +57,17 @@ router.get('/', async(req, res) => {
 });
 
 /**
- * Security Question FindById API
+ * FindById API
 */
 
 /**
- * Security Question Update API
+ * UpdateSecurityQuestion API
 */
 
 /**
- * Security Question Delete API
+ * DeleteSecurityQuestion API
 */
+
+/**
+ * FindSecurityQuestionByIds
+ */
